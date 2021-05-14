@@ -1,0 +1,11 @@
+<form method='GET' action="{% url 'search' %}">
+    <div class="d-flex">
+        <div class="form-outline">
+            <input type="search" id="searchbar" class="form-control" name='q' />
+            <label class="form-label" for="searchbar">Search a song, an artist...</label>
+        </div>
+        <button type="submit" class="btn btn-primary">
+            <i class="fas fa-search"></i>
+        </button>
+    </div>
+</form>
