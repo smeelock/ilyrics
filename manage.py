@@ -5,9 +5,13 @@ import sys
 import json
 
 def _setEnvironmentCredentials():
-    CREDENTIALS = json.load(open("credentials.json", 'r'))
-    for key, value in CREDENTIALS.items():
-        os.environ.setdefault(key, value)
+    """ Sets environment variables. Useful for debug. """
+    try :
+        CREDENTIALS = json.load(open("credentials.json", 'r'))
+        for key, value in CREDENTIALS.items():
+            os.environ.setdefault(key, value)
+    except FileNotFoundError:
+        print("Impossible to find file 'credentials.json'...")
 
 def main():
     """Run administrative tasks."""
