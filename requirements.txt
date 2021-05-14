@@ -4,3 +4,4 @@ requests-aws4auth==1.0.1
 psycopg2==2.8.6
 beautifulsoup4==4.9.3
 gunicorn
+django-heroku
