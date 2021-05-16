@@ -2,106 +2,116 @@
 
 {% block content %}
 
-<div class='d-flex align-items-center justify-content-center my-4'>
-    {% include 'searchApp/searchbar.html' %}
-</div>
-
-{% if query %}
-<div class="d-flex alignt-items-center justify-content-center mb-3">
-    <div class="d-flex flex-column">
+<div class="container-fluid">
+    <div class="row align-items-center justify-content-center my-3">
+        {% include 'searchApp/searchbar.html' %}
+    </div>   
+    
+    {% if query %}
+        <div class="row align-itmes-center justify-content-center my-2">
+            <div class="col"><h2 style="text-align: center;"><em><q>{{ query }}</q></em></h2></div>
+        </div>
         {% if top_result %}
-        <div class='p-2' style="width: 60vw;">
-            <h3>Top Result</h3>
-            {% if top_result.meta.id %}
-            <a class='custom-card' href="{% url 'song' songid=top_result.meta.id %}">
-                <div class="card">
-                    <!-- <img class="card-img-left" src="..." alt="Album Cover"> -->
-                    <div class="card-body">
-                        <h5 class="card-title">{{ top_result.title }}</h5>
-                        <h6 class="card-subtitle mb-2 text-muted">{{ top_result.artist }}</h6>
-                        <!-- <p class="text-muted">{{ top_result.meta.score }}</p> -->
+        <div class="row align-items-center justify-content-center">
+            <div class="col" style="max-width: 40em;">
+                <div class="p-2">
+                    <h3>Top Result</h3>
+                    {% if top_result.meta.id %}
+                    <a class='custom-card' href="{% url 'song' songid=top_result.meta.id %}">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ top_result.title }}</h5>
+                                <h6 class="card-subtitle mb-2 text-muted">{{ top_result.artist }}</h6>
+                                <!-- <p class="text-muted">{{ top_result.meta.score }}</p> -->
+                            </div>
+                        </div>
+                    </a>
+                    {% else %}
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ top_result.title }}</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">{{ top_result.artist }}</h6>
+                            <p class="text-muted">{{ top_result.meta.score }}</p>
+                        </div>
                     </div>
-                </div>
-            </a>
-            {% else %}
-            <div class="card">
-                <!-- <img class="card-img-left" src="..." alt="Album Cover"> -->
-                <div class="card-body">
-                    <h5 class="card-title">{{ top_result.title }}</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">{{ top_result.artist }}</h6>
-                    <p class="text-muted">{{ top_result.meta.score }}</p>
+                    {% endif %}
                 </div>
             </div>
-            {% endif %}
         </div>
+            
         {% endif %}
     
     
         {% if song_results %}
-        <div class='p-2' style="width: 60vw;">
-            <h3>Song Results</h3>
-            {% for result in song_results %}
-                {% if result.meta.id %}
-                    <a class='custom-card' href="{% url 'song' songid=result.meta.id %}">
-                        <div class="card m-2">
-                            <!-- <img class="card-img-left" src="..." alt="Album Cover"> -->
-                            <div class="card-body">
-                                <h5 class="card-title">{{ result.title }}</h5>
-                                <h6 class="card-subtitle mb-2 text-muted">{{ result.artist }}</h6>
-                                <!-- <p class="text-muted">{{ result.meta.score }}</p> -->    
-                            </div>
-                        </div>
-                    </a>
-                {% else %}
-                    <div class="card m-2">
-                        <!-- <img class="card-img-left" src="..." alt="Album Cover"> -->
-                        <div class="card-body">
-                            <h5 class="card-title">{{ result.title }}</h5>
-                            <h6 class="card-subtitle mb-2 text-muted">{{ result.artist }}</h6>
-                            <!-- <p class="text-muted">{{ result.meta.score }}</p> -->
-                        </div>
+            <div class="row align-items-center justify-content-center">
+                <div class="col" style="max-width: 40em;">
+                    <div class="p-2">
+                        <h3>Song Results</h3>
+                        {% for result in song_results %}
+                            {% if result.meta.id %}
+                                <a class='custom-card' href="{% url 'song' songid=result.meta.id %}">
+                                    <div class="card m-2">
+                                        <div class="card-body">
+                                            <h5 class="card-title">{{ result.title }}</h5>
+                                            <h6 class="card-subtitle mb-2 text-muted">{{ result.artist }}</h6>
+                                            <!-- <p class="text-muted">{{ result.meta.score }}</p> -->    
+                                        </div>
+                                    </div>
+                                </a>
+                            {% else %}
+                                <div class="card m-2">
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{ result.title }}</h5>
+                                        <h6 class="card-subtitle mb-2 text-muted">{{ result.artist }}</h6>
+                                        <!-- <p class="text-muted">{{ result.meta.score }}</p> -->
+                                    </div>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
                     </div>
-                {% endif %}
-            {% endfor %}
-        </div>
+                </div>
+            </div>
         {% endif %}
     
     
         {% if lyric_results %}
-        <div class='p-2' style="width: 60vw;">
-            <h3>Lyric Matches</h3>
-            {% for result in lyric_results %}
-                {% if result.meta.id %}
-                <div class="card m-2">
-                    <!-- <img class="card-img-left" src="..." alt="Album Cover"> -->
-                    <div class="card-body">
-                        <a href="{% url 'song' songid=result.meta.id %}">
-                            <h5 class="card-title">{{ result.title }}</h5>
-                        </a>
-                        <h6 class="card-subtitle mb-2 text-muted">{{ result.artist }}</h6>
-                        <p class="highlights card-text">
-                            {% for highlight in result.meta.highlight.lyrics %}
-                                {{ highlight|safe }}...
-                            {% empty %}
-                                <h3>Coultn't find lyrics...</h3>
-                            {% endfor %}
-                        </p>
+            <div class="row align-items-center justify-content-center">
+                <div class="col" style="max-width: 40em;">
+                    <div class="p-2">
+                        <h3>Lyric Matches</h3>
+                        {% for result in lyric_results %}
+                            {% if result.meta.id %}
+                            <div class="card m-2">
+                                <div class="card-body">
+                                    <a href="{% url 'song' songid=result.meta.id %}">
+                                        <h5 class="card-title">{{ result.title }}</h5>
+                                    </a>
+                                    <h6 class="card-subtitle mb-2 text-muted">{{ result.artist }}</h6>
+                                    <p class="highlights card-text">
+                                        {% for highlight in result.meta.highlight.lyrics %}
+                                            {{ highlight|safe }}...
+                                        {% empty %}
+                                            <h3>Coultn't find lyrics...</h3>
+                                        {% endfor %}
+                                    </p>
+                                </div>
+                            </div>
+                            {% else %}
+                            <div class="card m-2">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ result.title }}</h5>
+                                    <h6 class="card-subtitle mb-2 text-muted">{{ result.artist }}</h6>
+                                    
+                                    </div>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
                     </div>
                 </div>
-                {% else %}
-                <div class="card m-2">
-                    <!-- <img class="card-img-left" src="..." alt="Album Cover"> -->
-                    <div class="card-body">
-                        <h5 class="card-title">{{ result.title }}</h5>
-                        <h6 class="card-subtitle mb-2 text-muted">{{ result.artist }}</h6>
-                        
-                        </div>
-                    </div>
-                {% endif %}
-            {% endfor %}
-        </div>
+            </div>
         {% endif %}
-    </div>
+    {% endif %}
+
 </div>
-{% endif %}
+
 {% endblock %}
