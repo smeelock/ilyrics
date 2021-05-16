@@ -1,12 +1,14 @@
 {% extends 'searchApp/base.html' %}
 {% block content %}
-<div class="container d-flex flex-column align-items-center justify-content-center" style="height: 90vh;">
-    <div class="jumbotron p-1 w-50">
-        <h1 class="display-4"><strong>ILY</strong>rics</h1>
-        <p class="lead text-muted">a minimal lyrics search engine</p>
-        <hr class="my-4">
+<div class="container-fluid">
+    <div class="row align-items-center justify-content-center my-5">
+        <div class="jumbotron p-1 w-50">
+            <h1 class="display-4"><strong>ILY</strong>rics</h1>
+            <p class="lead text-muted">a minimal lyrics search engine</p>
+            <hr class="my-4">
+        </div>
     </div>
-    <div class="row my-4">
+    <div class="row align-items-center justify-content-center">
         {% include 'searchApp/searchbar.html' %}
     </div>
 </div>
