@@ -3,32 +3,33 @@
 {% block content %}
 
 <!-- Content -->
-<div class="d-flex flex-column justify-content-center mb-3">
+<div class="container-fluid">
     {% if song %}
     <!-- Description -->
-    <div class='d-flex align-items-center justify-content-center mb-3'>
-        <div class="card w-25">
-            <img class="card-img-top" src="{{ song.cover }}" alt="Album Cover">
-        </div>
-
-        <div class="jumbotron p-5 w-50">
-            <h1 class="display-4">{{ song.title }}</h1>
-            <p class="lead">{{ song.artist }}</p>
-            <p class="lead text-muted">in {{ song.album }}</p>
-            <hr class="my-4">
-            <!-- Links -->
-            <p>View on <a href="{{ song.url }}"> Genius</a>. Listen on
-            
-            {% for m in song.media %}
-                <a href="{{ m.url }}">{{ m.provider }}</a>
-            {% endfor %}
-            </p>
+    <div class="row align-items-center justify-content-center my-5">
+        <div class="col-md-5 px-5">
+            <img class="img-fluid rounded" src="{{ song.cover }}" alt="Album Cover">
+        </div> 
+        <div class="col-md-7">
+            <div class="jumbotron p-5">
+                <h1 class="display-4">{{ song.title }}</h1>
+                <p class="lead">{{ song.artist }}</p>
+                <p class="lead text-muted">in {{ song.album }}</p>
+                <hr class="my-4">
+                <!-- Links -->
+                <p>View on <a href="{{ song.url }}"> Genius</a>. Listen on
+                
+                {% for m in song.media %}
+                    <a href="{{ m.url }}">{{ m.provider }}</a>
+                {% endfor %}
+                </p>
+            </div>
         </div>
     </div>
     
     <!-- Lyrics -->
-    <div class='d-flex align-items-center justify-content-center mb-3'>
-        <div class="card w-75">
+    <div class='row justify-content-center'>
+        <div class="card" style="max-width: 40em;">
             <div class="card-body">
                 <p class="card-text">{{ song.lyrics|linebreaks }}</p>
             </div>
