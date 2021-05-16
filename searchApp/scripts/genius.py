@@ -1,3 +1,4 @@
+import os
 from bs4 import BeautifulSoup
 import requests
 import urllib
@@ -10,8 +11,7 @@ from ..models import Song
 WORKERS = 5
 
 # tokens and auth stuff
-GENIUS_ACCESS_TOKEN = "xVkIAGX-UFW9b49OybDSeoU1UTMyUBMlsuYe38ONfAiW0U54DM9qZx2UJu7VMpVi"
-
+GENIUS_ACCESS_TOKEN = os.environ['GENIUS_ACCESS_TOKEN']
 agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36"
 headers = {'User-Agent': agent, 'Authorization': "Bearer "+ GENIUS_ACCESS_TOKEN }
 
