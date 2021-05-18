@@ -1,8 +1,15 @@
+# ======================================
+#                Useful
+# ======================================
 
 import os
 import zipfile
 from itertools import islice
+from tqdm import tqdm
+
 from ..models import Song
+        
+WORKERS = 5
 
 def unzip(zip_file, target_dir):
     with zipfile.ZipFile(zip_file, 'r') as f:
@@ -28,3 +35,13 @@ def removeDuplicates():
         print(f"Removed {len(to_delete)} duplicates from database!")
     else:
         print("Aborted.")
+
+def addSongs(iterator, batch_size=100):
+    # def _add_one_song(song):
+    #     new_song = Song(title=song['title'], artist=song['artist'], lyrics=song['lyrics'])
+    #     new_song.save()
+    #     print(f"*Added {song['title']} by {song['artist']}")
+
+    # with concurrent.futures.ThreadPoolExecutor(max_workers=WORKERS) as executor:
+    #     executor.map(_add_one_song, iterator)
+    # print(f"Added {len(iterator)} songs to index.")
