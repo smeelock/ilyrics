@@ -22,9 +22,13 @@ def kaggle_dataset(zipfile):
     lyrics = pd.read_csv(lyrics_filename, usecols=['ALink', 'SName', 'Lyric'])
     data = lyrics.merge(artists, left_on='ALink', right_on='Link', how='inner')
     data = data.dropna(axis=0, how='any')
+    data['title+artist'] = data['SName'] + data['Artist']
+    data = data.drop_duplicates('title+artist', keep='first')
 
     # format data
     data = data.rename(columns={'SName': 'title', 'Lyric': 'lyrics', 'Artist': 'artist'})[
         ['title', 'artist', 'lyrics']]
+    # data = data.drop_duplicates(subset=['artist', 'lyrics'], keep='first')
+    return data.to_dict(orient='records')
     return data.to_dict(orient='records')
 
