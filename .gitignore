@@ -230,7 +230,7 @@ Thumbs.db
 # End of https://www.toptal.com/developers/gitignore/api/django,python
 
 # CUSTOM
-data/*
-.vscode/*
-scripts/*
+data/
+.vscode/
+scripts/
 credentials.json

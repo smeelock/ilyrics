@@ -4,9 +4,6 @@ import requests
 import urllib
 import concurrent.futures
 
-# with concurrent.futures.ThreadPoolExecutor(max_workers=13) as executor:
-#     executor.map(populateDB, "0abcdefghijklmnopqrstuvwxyz")
-
 from ..models import Song
 WORKERS = 5
 
