@@ -14,7 +14,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         self.stdout.write("*"*40)
-        self.stdout.write("Starting remove_duplicates")
+        self.stdout.write(f"Starting remove_duplicates with {options['workers']} workers")
         # find duplicates
         artists = Song.objects.values_list('artist', flat=True).distinct()
         self.stdout.write(f"Database info: {Song.objects.all().count()} (total), {len(artists)} (artists)")
@@ -32,7 +32,7 @@ class Command(BaseCommand):
                         duplicates += list(d)
                 pbar.update(1)
                 if len(duplicates) > 0:
-                    self.stdout.write(f"*Found {len(duplicates)} duplicates for artist {artist}")
+                    pbar.write(f"*Found {len(duplicates)} duplicates for artist {artist}")
                     return duplicates
 
             with concurrent.futures.ThreadPoolExecutor(max_workers=options['workers']) as executor:
