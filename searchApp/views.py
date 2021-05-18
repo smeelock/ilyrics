@@ -19,7 +19,6 @@ def search(request):
     
         # ask indexed songs
         query = "*" + "* *".join(queryterms.split()) + "*"
-        print(query)
         top = SongDocument.search().query('multi_match', query=query, fields=['title', 'artist', 'lyrics'], type="cross_fields").execute()
         songs = SongDocument.search().query('multi_match', query=query, fields=['title', 'artist'], type="cross_fields").execute()
         lyrics = SongDocument.search().query('multi_match', query=query, fields=['lyrics']).highlight('lyrics', fragment_size=30).execute()
@@ -38,21 +37,29 @@ def search(request):
         return redirect('/') 
 
 def song(request, songid):
-    song = Song.objects.get(pk=songid)
-    metadata = { 'title': song.title, 'artist': song.artist, 'lyrics': song.lyrics }
-    hits = genius.askGenius(f"{song.title} {song.artist}", update_index=False)
+    try: 
+        song = Song.objects.get(pk=songid)
+        assert song, "Invalid songid"
+        metadata = { 'title': song.title, 'artist': song.artist, 'lyrics': song.lyrics }
+        hits = genius.askGenius(f"{song.title} {song.artist}", update_index=False)
 
-    if hits is not None and len(hits) > 0:
-        best = genius.getSong(hits[0]['id'])
-        if best:
-            metadata['cover'] = best['song_art_image_url']
-            metadata['album'] = best['album']['name'] if best['album'] else ""
-            metadata['url'] = best['url']
-            metadata['media'] = best['media']
+        if hits is not None and len(hits) > 0:
+            best = genius.getSong(hits[0]['id'])
+            if best:
+                metadata['cover'] = best['song_art_image_url']
+                metadata['album'] = best['album']['name'] if best['album'] else ""
+                metadata['url'] = best['url']
+                metadata['media'] = best['media']
 
 
-    context = {
-        'song': metadata,
-    }
-    return render(request, 'searchApp/song.html', context)
+        context = {
+            'song': metadata,
+        }
+        return render(request, 'searchApp/song.html', context)
+    
+    except Exception as e:
+        print(request.META.get("HTTP_REFERER"))
+        # return to previous page if http_refere is set, else redirect to homepage
+        return HttpResponseRedirect(request.META.get("HTTP_REFERER", '/'))
+
     # return HttpResponseRedirect(reverse('song', kwargs=context))
