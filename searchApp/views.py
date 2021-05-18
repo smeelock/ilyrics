@@ -38,21 +38,25 @@ def search(request):
         return redirect('/') 
 
 def song(request, songid):
-    song = Song.objects.get(pk=songid)
-    metadata = { 'title': song.title, 'artist': song.artist, 'lyrics': song.lyrics }
-    hits = genius.askGenius(f"{song.title} {song.artist}", update_index=False)
+    try: 
+        song = Song.objects.get(pk=songid)
+        assert song.exists(), "Invalid songid, I couldn't find the song in the database"
+        metadata = { 'title': song.title, 'artist': song.artist, 'lyrics': song.lyrics }
+        hits = genius.askGenius(f"{song.title} {song.artist}", update_index=False)
 
-    if hits is not None and len(hits) > 0:
-        best = genius.getSong(hits[0]['id'])
-        if best:
-            metadata['cover'] = best['song_art_image_url']
-            metadata['album'] = best['album']['name'] if best['album'] else ""
-            metadata['url'] = best['url']
-            metadata['media'] = best['media']
+        if hits is not None and len(hits) > 0:
+            best = genius.getSong(hits[0]['id'])
+            if best:
+                metadata['cover'] = best['song_art_image_url']
+                metadata['album'] = best['album']['name'] if best['album'] else ""
+                metadata['url'] = best['url']
+                metadata['media'] = best['media']
 
 
-    context = {
-        'song': metadata,
-    }
+        context = {
+            'song': metadata,
+        }
+    except Exception as e:
+        print("An error occured", e)
     return render(request, 'searchApp/song.html', context)
     # return HttpResponseRedirect(reverse('song', kwargs=context))
