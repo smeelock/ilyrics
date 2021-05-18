@@ -32,7 +32,7 @@ def askGenius(query, update_index=False):
             
             def _update(hit):
                 title, artist = hit['title_with_featured'], hit['primary_artist']['name']
-                if (title not in used_titles) and (artist not in used_artists):
+                if (title not in used_titles) or (artist not in used_artists):
                     lyrics = getLyrics(hit)
                     if lyrics:
                         s = Song(title=title, artist=artist, lyrics=lyrics)
