@@ -59,7 +59,6 @@ def song(request, songid):
     
     except Exception as e:
         print("An error occurred, redirecting to search results... \n\t", e)
-        print(request.META.get("HTTP_REFERER"))
         # return to previous page if http_refere is set, else redirect to homepage
         return HttpResponseRedirect(request.META.get("HTTP_REFERER", '/'))
 
