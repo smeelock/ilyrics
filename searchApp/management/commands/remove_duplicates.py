@@ -1,3 +1,4 @@
+from tqdm import tqdm
 import concurrent.futures
 
 from django.core.management.base import BaseCommand, CommandError
@@ -15,22 +16,27 @@ class Command(BaseCommand):
         self.stdout.write("*"*40)
         self.stdout.write("Starting remove_duplicates")
         # find duplicates
-        artists = Song.objects.values_list('artist', flat=True).distinct()
+        artists = Song.objects.values_list('artist', flat=True).distinct()[:10]
         self.stdout.write(f"Database info: {Song.objects.all().count()} (total), {len(artists)} (artists)")
-        def _find_duplicates(artist):
-            duplicates = []
-            titles = Song.objects.filter(artist=artist).values_list('title', flat=True).distinct()
-            for title in titles:
-                ids = Song.objects.filter(title=title, artist=artist).values_list('id', flat=True)
-                d = Song.objects.filter(pk__in=ids[1:])
-                if d.exists():
-                    duplicates += list(d)
-            if len(duplicates) > 0:
-                self.stdout.write(f"*Found {len(duplicates)} duplicates for artist {artist}")
-                return duplicates
 
-        with concurrent.futures.ThreadPoolExecutor(max_workers=options['workers']) as executor:
-            results = list(executor.map(_find_duplicates, artists))
+        with tqdm(total=len(artists), desc="Find duplicates") as pbar:
+            # /!\ thread unsafe
+            # TODO: make it trade safe
+            def _find_duplicates(artist):
+                duplicates = []
+                titles = Song.objects.filter(artist=artist).values_list('title', flat=True).distinct()
+                for title in titles:
+                    ids = Song.objects.filter(title=title, artist=artist).values_list('id', flat=True)
+                    d = Song.objects.filter(pk__in=ids[1:])
+                    if d.exists():
+                        duplicates += list(d)
+                pbar.update(1)
+                if len(duplicates) > 0:
+                    self.stdout.write(f"*Found {len(duplicates)} duplicates for artist {artist}")
+                    return duplicates
+
+            with concurrent.futures.ThreadPoolExecutor(max_workers=options['workers']) as executor:
+                results = list(executor.map(_find_duplicates, artists))
         
         to_delete = []
         for res in results:
