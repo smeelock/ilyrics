@@ -4,9 +4,39 @@ from django.urls import reverse
 
 from .models import Song
 from .documents import SongDocument
-from .scripts import genius, utils
+from .scripts import genius
 
 def index(request):
+    # try : 
+        # print("*"*40)
+        # print("Removing duplicates")
+        # utils.removeDuplicates()
+
+        # print("*"*40)
+        # print("Loading kaggle")
+        # zipfile = "../data/kaggel_dataset.zip"
+        # kaggle_data = dataloader.kaggle_dataset(zipfile)
+        # print("Importing kaggle")
+        # utils.addSongs(kaggle_data)
+
+        # print("*"*40)
+        # print("Loading spotify billboard")
+        # zipfile = "../data/typhon-billboard-hot-100-songs-2000-2018-w-spotify-data-lyrics.zip"
+        # spotify_data = dataloader.spotify_billboard_2000_2018(zipfile)
+        # print("Importing spotify")
+        # utils.addSongs(spotify_data)
+
+        # print("*"*40)
+        # print("Loading azlyrics scraped")
+        # zipfile = "../data/lyrics_multithread_11_05_2021.zip"
+        # azlyrics_data = dataloader.manually_scraped_lyrics(zipfile)
+        # print("Importing azlyrics")
+        # utils.addSongs(azlyrics_data)
+
+        # print("*"*40)
+        # print("DONE!")
+    # except Exception as e:
+    #     print(e)
     return render(request, 'searchApp/index.html', {})
 
 def search(request):
