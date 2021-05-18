@@ -37,7 +37,7 @@ def askGenius(query, update_index=False):
                     if lyrics:
                         s = Song(title=title, artist=artist, lyrics=lyrics)
                         s.save()
-                        print("Adding 1 song to index!")
+                        print(f"Adding 1 song to index: '{title}' by '{artist}'")
             
             with concurrent.futures.ThreadPoolExecutor(max_workers=WORKERS) as executor:
                 executor.map(_update, hits)
