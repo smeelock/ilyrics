@@ -45,3 +45,13 @@ def addSongs(iterator, batch_size=100):
     # with concurrent.futures.ThreadPoolExecutor(max_workers=WORKERS) as executor:
     #     executor.map(_add_one_song, iterator)
     # print(f"Added {len(iterator)} songs to index.")
+    songs = []
+    for song in tqdm(iterator, desc="songs"):
+        new_song = Song(title=song['title'], artist=song['artist'], lyrics=song['lyrics'])
+        songs.append(new_song)
+    while True:
+        batch = list(islice(songs, batch_size))
+        if not batch:
+            break
+        Song.objects.bulk_create(batch, batch_size)
+        print(f"*Added {batch_size} songs to index")
