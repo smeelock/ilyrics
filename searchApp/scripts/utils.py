@@ -1,4 +1,13 @@
+
+import os
+import zipfile
+from itertools import islice
 from ..models import Song
+
+def unzip(zip_file, target_dir):
+    with zipfile.ZipFile(zip_file, 'r') as f:
+        f.extractall(target_dir)
+    print(f"Unzipped {os.path.basename(zip_file)} into {target_dir}.")
 
 def removeDuplicates():
     """ Removes duplicates. Extremely inefficient because checks for each combination title/artist..."""
