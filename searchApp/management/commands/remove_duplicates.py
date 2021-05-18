@@ -16,7 +16,7 @@ class Command(BaseCommand):
         self.stdout.write("*"*40)
         self.stdout.write("Starting remove_duplicates")
         # find duplicates
-        artists = Song.objects.values_list('artist', flat=True).distinct()[:10]
+        artists = Song.objects.values_list('artist', flat=True).distinct()
         self.stdout.write(f"Database info: {Song.objects.all().count()} (total), {len(artists)} (artists)")
 
         with tqdm(total=len(artists), desc="Find duplicates") as pbar:
