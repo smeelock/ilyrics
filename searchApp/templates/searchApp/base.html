@@ -4,7 +4,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no" />
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
     <title>ILYrics - Lyrics Finder</title>
     <!-- ILYrics icon -->
@@ -24,7 +24,7 @@
     <link rel="stylesheet" href="{% static 'searchApp/css/custom.css' %}" />
   </head>
   <body>
-    <div class="body" style="min-height: 100vh;">
+    <div class="container-fluid min-vh-100 pb-5">
       <!-- Navbar -->
       <nav class="navbar navbar-light bg-light">
         <a class="navbar-brand" href="{% url 'index' %}">
@@ -45,7 +45,7 @@
   </body>
 
   <!-- Footer -->
-  <div class="footer">
+  <div class="footer mt-5">
     <footer class="text-center text-lg-start bg-light text-muted">
       <div class="text-center p-4">
         &copy; 2021 ILYrics
