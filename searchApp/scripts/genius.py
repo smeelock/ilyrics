@@ -29,8 +29,11 @@ def askGenius(query, update_index=False):
             
             def _update(hit):
                 title, artist = hit['title_with_featured'], hit['primary_artist']['name']
-                assert "genius" not in artist.lower(), f"Genius-made song, {artist}" # check if it's not a Genuis-made song (like traduction, top pop...) 
                 
+                for company_name in ["genius", "billboard", "spotify", "deezer", "youtube", "soundcloud"]:
+                    assert company_name not in artist.lower(), f"Company-made song, {artist}" # check if it's not a Genuis-made song (like traduction, top pop...) 
+                
+
                 if (title not in used_titles) or (artist not in used_artists):
                     lyrics = getLyrics(hit)
                     if lyrics:
