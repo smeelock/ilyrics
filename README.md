@@ -3,8 +3,7 @@
 </p>
 
 # ILYrics, a minimal lyrics search engine
-[![GitHub license](https://img.shields.io/github/license/smeelock/ilyrics)](https://github.com/smeelock/ilyrics)
-
+<!-- [![GitHub license](https://img.shields.io/github/license/smeelock/ilyrics)](https://github.com/smeelock/ilyrics/blob/main/LICENSE) -->
 
 **ILYrics** is minimal lyrics search engine based on Django as the frontend, ElasticSearch as the backend, working with an AWS postgreSQL database and deployed on heroku [here](https://www.ilyrics.herokuapp.com "ILYrics"). 
 
