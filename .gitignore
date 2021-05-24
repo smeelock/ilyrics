@@ -232,5 +232,4 @@ Thumbs.db
 # CUSTOM
 data/
 .vscode/
-scripts/
 credentials.json
