@@ -4,7 +4,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no" />
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
     <title>ILYrics - Lyrics Finder</title>
     <!-- ILYrics icon -->
@@ -19,25 +19,41 @@
       href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"
     />
     
-    <!-- MDB -->
+    <!-- css -->
     <link rel="stylesheet" href="{% static 'searchApp/css/mdb.min.css' %}" />
     <link rel="stylesheet" href="{% static 'searchApp/css/custom.css' %}" />
   </head>
   <body>
-    <!-- Navbar -->
-    <nav class="navbar navbar-light bg-light">
-      <a class="navbar-brand" href="{% url 'index' %}">
-        <img src="{% static 'searchApp/img/music_logo.jpg' %}" width="30" height="30" class="d-inline-block align-top ms-5 me-2"
-          alt="ILYrics_logo">
-        <strong>ILY</strong>rics
-      </a>
-    </nav>
-
-    {% block content %} {% endblock %}
-
+    <div class="container-fluid min-vh-100 pb-5">
+      <!-- Navbar -->
+      <nav class="navbar navbar-light bg-light">
+        <a class="navbar-brand" href="{% url 'index' %}">
+          <img src="{% static 'searchApp/img/music_logo.jpg' %}" width="30" height="30" class="d-inline-block align-top ms-5 me-2"
+            alt="ILYrics_logo">
+          <strong>ILY</strong>rics
+        </a>
+      </nav>
+  
+      {% block content %} {% endblock %}
+    
     <!-- MDB -->
     <script type="text/javascript" src="{% static 'searchApp/js/mdb.min.js' %}"></script>
     <!-- Custom scripts -->
     <script type="text/javascript"></script>
+
+    </div>
   </body>
+
+  <!-- Footer -->
+  <div class="footer mt-5">
+    <footer class="text-center text-lg-start bg-light text-muted">
+      <div class="text-center p-4">
+        &copy; 2021 ILYrics
+        <p>
+          Created by <a href="https://www.linkedin.com/in/fr-aurelien-vu-ngoc">Aurélien 奥雷 Vu Ngoc</a> · WebIR @ <a href="https://www.tsinghua.edu.cn/en/index.htm">Tsinghua</a>
+        </p>
+      </div>
+    </footer>
+  </div>
+  <!-- Footer -->
 </html>

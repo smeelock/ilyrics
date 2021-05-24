@@ -29,12 +29,17 @@ def askGenius(query, update_index=False):
             
             def _update(hit):
                 title, artist = hit['title_with_featured'], hit['primary_artist']['name']
-                if (title not in used_titles) and (artist not in used_artists):
+                
+                for company_name in ["genius", "billboard", "spotify", "deezer", "youtube", "soundcloud"]:
+                    assert company_name not in artist.lower(), f"Company-made song, {artist}" # check if it's not a Genuis-made song (like traduction, top pop...) 
+                
+
+                if (title not in used_titles) or (artist not in used_artists):
                     lyrics = getLyrics(hit)
                     if lyrics:
                         s = Song(title=title, artist=artist, lyrics=lyrics)
                         s.save()
-                        print("Adding 1 song to index!")
+                        print(f"Adding 1 song to index: '{title}' by '{artist}'")
             
             with concurrent.futures.ThreadPoolExecutor(max_workers=WORKERS) as executor:
                 executor.map(_update, hits)

@@ -19,7 +19,6 @@ def search(request):
     
         # ask indexed songs
         query = "*" + "* *".join(queryterms.split()) + "*"
-        print(query)
         top = SongDocument.search().query('multi_match', query=query, fields=['title', 'artist', 'lyrics'], type="cross_fields").execute()
         songs = SongDocument.search().query('multi_match', query=query, fields=['title', 'artist'], type="cross_fields").execute()
         lyrics = SongDocument.search().query('multi_match', query=query, fields=['lyrics']).highlight('lyrics', fragment_size=30).execute()
@@ -56,7 +55,11 @@ def song(request, songid):
         context = {
             'song': metadata,
         }
+        return render(request, 'searchApp/song.html', context)
+    
     except Exception as e:
-        print("An error occured", e)
-    return render(request, 'searchApp/song.html', context)
+        print("An error occurred, redirecting to search results... \n\t", e)
+        # return to previous page if http_refere is set, else redirect to homepage
+        return HttpResponseRedirect(request.META.get("HTTP_REFERER", '/'))
+
     # return HttpResponseRedirect(reverse('song', kwargs=context))
