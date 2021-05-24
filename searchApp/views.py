@@ -40,7 +40,7 @@ def search(request):
 def song(request, songid):
     try: 
         song = Song.objects.get(pk=songid)
-        assert song.exists(), "Invalid songid, I couldn't find the song in the database"
+        assert song, "Invalid songid, I couldn't find the song in the database"
         metadata = { 'title': song.title, 'artist': song.artist, 'lyrics': song.lyrics }
         hits = genius.askGenius(f"{song.title} {song.artist}", update_index=False)
 
