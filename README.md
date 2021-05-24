@@ -14,7 +14,7 @@ ILYrics is composed of the following:
 - **Django** (2.2.5)
 - **ElasticSearch** (7.12.1) hosted inside a free tier AWS instance like [this one](https://aws.amazon.com/elasticsearch-service/ "AWS Elasticsearch Service")
 - **PostgreSQL** online database with 20Go SSD storage, also hosted inside a free tier AWS instance like [this one](https://aws.amazon.com/rds/ "AWS RDS")
-- **Heroku** is used to deploy the application as an application 24/7 available
+- **Heroku** is used to deploy the application as a 24/7 available website
 
 ## Features
 ILYrics can find songs based a song name, an artist name. Thanks to the power of [ElasticSearch](https://www.elastic.co/) (based on Lucene), it can also **find songs based on part of lyrics**.

@@ -4,7 +4,7 @@ from django.urls import reverse
 
 from .models import Song
 from .documents import SongDocument
-from .scripts import genius, utils
+from .scripts import genius
 
 def index(request):
     return render(request, 'searchApp/index.html', {})
@@ -39,7 +39,7 @@ def search(request):
 def song(request, songid):
     try: 
         song = Song.objects.get(pk=songid)
-        assert song, "Invalid songid"
+        assert song, "Invalid songid, I couldn't find the song in the database"
         metadata = { 'title': song.title, 'artist': song.artist, 'lyrics': song.lyrics }
         hits = genius.askGenius(f"{song.title} {song.artist}", update_index=False)
 
