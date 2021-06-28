@@ -7,7 +7,7 @@
 
 **ILYrics** is minimal lyrics search engine based on Django as the frontend, ElasticSearch as the backend, working with an AWS postgreSQL database and deployed on heroku [here](https://www.ilyrics.herokuapp.com "ILYrics"). 
 
-This project is part of Tsinghua's 2021 WebIR Course taught by Prof. and inspired by [Genius](https://genius.com). In addition to the present code, the report and presentation slides are available [here](/report/WebIR%20A%20lyrics%20search%20engine%20-%20report.pdf "Report") and [here](/report/WebIR%20A%20lyrics%20search%20engine%20-%20slides.pdf "Slides")
+This project is part of Tsinghua's 2021 WebIR Course taught by Prof. and inspired by [Genius](https://genius.com). In addition to the present code, the [report](/report/WebIR%20A%20lyrics%20search%20engine%20-%20report.pdf "Report") and presentation [slides](/report/WebIR%20A%20lyrics%20search%20engine%20-%20slides.pdf "Slides") are available online.
 
 ## Components
 ILYrics is composed of the following:
